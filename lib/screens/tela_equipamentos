@@ -1,0 +1,26 @@
+import 'package:flutter/material.dart';
+
+class TelaEquipamentos extends StatelessWidget {
+
+  final String nomeSubestacao;
+
+  const TelaEquipamentos({
+    super.key,
+    required this.nomeSubestacao,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(nomeSubestacao),
+      ),
+      body: const Center(
+        child: Text(
+          'Lista de equipamentos (em construção)',
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+    );
+  }
+}

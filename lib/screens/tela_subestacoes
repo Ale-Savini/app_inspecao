@@ -1,0 +1,67 @@
+import 'package:flutter/material.dart';
+import '../dados.dart';
+import 'tela_equipamentos';
+
+class TelaSubestacoes extends StatefulWidget {
+  const TelaSubestacoes({super.key});
+
+  @override
+  State<TelaSubestacoes> createState() => _TelaSubestacoesState();
+}
+
+class _TelaSubestacoesState extends State<TelaSubestacoes> {
+  String pesquisa = '';
+
+  @override
+  Widget build(BuildContext context) {
+    final listaFiltrada = subestacoes
+        .where((s) => s.toLowerCase().contains(pesquisa.toLowerCase()))
+        .toList();
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Selecionar Subestação')),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: TextField(
+              decoration: const InputDecoration(
+                labelText: 'Pesquisar subestação',
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.search),
+              ),
+              onChanged: (valor) {
+                setState(() {
+                  pesquisa = valor;
+                });
+              },
+            ),
+          ),
+
+          Expanded(
+            child: ListView.builder(
+              itemCount: listaFiltrada.length,
+              itemBuilder: (context, index) {
+                final subestacao = listaFiltrada[index];
+
+                return ListTile(
+                  title: Text(subestacao),
+                  trailing: const Icon(Icons.arrow_forward),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            TelaEquipamentos(nomeSubestacao: subestacao),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
